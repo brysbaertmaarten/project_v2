@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{# title block #}
+{% block title %}
+    account
+{% endblock %}
+
+{# active_page block #}
+{% block account_active_page %}
+    active
+{% endblock %}
+
+{% block body %}
+    {# accountgegevens komen binnen account = [id, fn, ln, email, pw #}
+    <div id="logout"><a href="#">log out</a></div>
+
+    <form action="{{ url_for('account_update') }}" method="post" id="account">
+        <label for="username">user naam</label>
+        <input type="text" id="username" name="username" value="{{ (accountgegevens[0])[1] }}">
+
+        <label for="first_name">first name</label>
+        <input type="text" id="first_name" name="first_name" value="{{ (accountgegevens[0])[2] }}">
+
+        <label for="last_name">last name</label>
+        <input type="text" id="last_name" name="last_name" value="{{ (accountgegevens[0])[3] }}">
+
+        <label for="password">wachtwoord</label>
+        <input type="password" id="password" name="password" value="{{ (accountgegevens[0])[5] }}">
+
+        <label for="email">email</label>
+        <input type="email" id="email" name="email" value="{{ (accountgegevens[0])[4] }}">
+
+        <div class="save-button">
+            <button type="submit">save</button> {# moet pas tevoorschijn komen als er iets wordt aangepast + er komt een popup die bevestigt dat de aanpassingen zijn opgeslagen #}
+        </div>
+    </form>
+
+    <div class="spacer"></div>
+
+    {% if updated %}
+        <script>
+            alert('account gegevens zijn bijgewerkt');
+        </script>
+    {% endif %}
+
+    <script>
+        {# als er verandering wordt vastgesteld dan kleurt de save balk #}
+        var username = document.getElementById('username').value;
+        var first_name = document.getElementById('first_name').value;
+        var last_name = document.getElementById('last_name').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+
+        setInterval(function(){
+            var new_username = document.getElementById('username').value;
+            var new_first_name = document.getElementById('first_name').value;
+            var new_last_name = document.getElementById('last_name').value;
+            var new_email = document.getElementById('email').value;
+            var new_password = document.getElementById('password').value;
+
+            if ((new_username === username) && (new_first_name === first_name) && (new_last_name === last_name) && (new_email === email) && (new_password === password)){
+                document.getElementsByClassName('save-button')[0].style.backgroundColor = "grey";
+            }else{
+                document.getElementsByClassName('save-button')[0].style.backgroundColor = "green";
+            }
+
+        }, 1000);
+    </script>
+{% endblock %}

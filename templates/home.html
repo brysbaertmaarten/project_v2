@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{# title block #}
+{% block title %}
+    home
+{% endblock %}
+
+{# active_page block #}
+{% block home_active_page %}
+    active
+{% endblock %}
+
+{% block body %}
+
+    <form action="{{ url_for('rotate') }}" method="POST" id="form">
+        <button name="richting" type="submit" value="l">left</button>
+        <button name="richting" type="submit" value="r">right</button>
+        <button name="richting" type="submit" value="u">up</button>
+        <button name="richting" type="submit" value="d">down</button>
+    </form>
+
+    <a href="{{ url_for('led') }}">test led</a>
+
+    <a href="{{ url_for('securitymode') }}">securitymode</a>
+
+    <script>
+
+    </script>
+
+{% endblock %}

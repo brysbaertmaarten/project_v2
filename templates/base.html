@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename="css/reset.css") }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename="css/stijl.css") }}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="home"><a href="{{ url_for('home') }}" id="{% block home_active_page %}{% endblock %}" title="home"><img src="" alt="logo"></a></li>
+            <li class="account"><a href="{{ url_for('account') }}" id="{% block account_active_page %}{% endblock %}" title="account"><img src="" alt="account icon"></a></li>
+            <li class="captured_media"><a href="{{ url_for('captured_media') }}" id="{% block captured_media_active_page %}{% endblock %}" title="captured media"><img src="" alt="library icon"></a></li>
+        </ul>
+    </nav>
+
+    <div class="spacer"></div>
+
+    {% block body %}
+
+    {% endblock %}
+
+</body>
+</html>

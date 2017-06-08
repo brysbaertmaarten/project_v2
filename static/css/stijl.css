@@ -1,0 +1,105 @@
+/* desktop(max 1024px) */
+	/*hoofdopmaak*/
+	html{
+		font-family: 'Source Sans Pro', sans-serif;
+		/*font-family: 'Damion', cursive;*/
+
+		font-size: 15px;
+	}
+	*{
+		margin: 0;
+		padding: 0;
+	}
+    .spacer{
+        height: 50px;
+    }
+
+	/*nav*/
+	nav{
+		width: 100%;
+        height: 50px;
+        position: fixed;
+        background-color: black;
+	}
+    nav .home{
+        float: left;
+    }
+    nav .account, nav .captured_media{
+        float: right;
+    }
+
+    /*account*/
+    input, label{
+        display: block;
+    }
+    #account input{
+        margin: 0 5px;
+        margin-bottom: 15px;
+        width: calc(100% - 10px);
+        border: none;
+        background-color: lightgray;
+        padding: 10px 0;
+        text-indent: 5px;
+    }
+    #account label{
+        margin: 0 5px;
+        margin-bottom:3px;
+        color: grey;
+    }
+    #logout{
+        margin-bottom: 10px;
+        width: 100%;
+        height: 50px;
+    }
+    #logout a{
+        float: right;
+        display: block;
+        background-color: grey;
+        margin: 5px;
+        padding: 10px 20px;
+        text-decoration: none;
+    }
+
+    /*securitymode*/
+    #security label{
+        width: 100%;
+        padding: 15px 0;
+        text-indent: 5px;
+    }
+    #security label:first-child{
+        background-color: grey;
+    }
+    #security input{
+        float: right;
+        margin-right: 5px;
+    }
+
+    /*save-button*/
+    .save-button{
+        width: 100%;
+        height: 50px;
+        background-color: grey;
+        position: fixed;
+        bottom: 0;
+    }
+    .save-button button{
+        float: right;
+        margin: 5px;
+        font-size: 1.2em;
+        text-align: center;
+        padding: 10px 20px;
+        border: none;
+    }
+	
+
+
+/* tablet (max 480px) */
+@media only screen and (max-width: 960px) {
+
+}
+
+/* mobile (max 320px) */
+@media only screen and (min-width: 220px) and (max-width: 580px){
+	
+
+}

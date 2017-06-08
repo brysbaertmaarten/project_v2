@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{# title block #}
+{% block title %}
+    captured media
+{% endblock %}
+
+{# active_page block #}
+{% block captured_media_active_page %}
+    active
+{% endblock %}
+
+{% block body %}
+    <form action="#" method="post" id="account">
+        <p>extensie</p>
+        <label for="foto">foto</label>
+        <input type="checkbox" id="foto" name="foto">
+        <label for="foto">video</label>
+        <input type="checkbox" id="video" name="video">
+
+        <p>datum en uur</p>
+        <label for="date">datum</label>
+        <input type="date" id="date" name="date">
+
+        <p>naam</p>
+        <label for="naam">naam</label>
+        <input type="text" id="naam" name="naam">
+
+        <div class="search-button">
+            <button type="submit">search</button> {# moet pas tevoorschijn komen als er iets wordt aangepast + er komt een popup die bevestigt dat de aanpassingen zijn opgeslagen #}
+        </div>
+    </form>
+
+    <div class="spacer"></div>
+{% endblock %}

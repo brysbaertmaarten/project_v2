@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{# title block #}
+{% block title %}
+    security mode
+{% endblock %}
+
+{% block body %}
+    {# krijgt list mee van table security instellingen #}
+    <form action="{{ url_for('securitymode_update') }}" method="post" id="security">
+        <label for="securitymode">
+            securitymode
+            <input type="checkbox" id="securitymode" name="securitymode"
+                {% if settings[0][1] %}{# list[0] = 1 #}
+                    checked
+                {% endif %}
+            >
+        </label>
+
+        <label for="alarm">
+            alarm
+            <input type="checkbox" id="alarm" name="alarm"
+                {% if settings[0][3] %}{# list[0] = 1 #}
+                    checked
+                {% endif %}
+            >
+        </label>
+
+        <label for="led">
+            led
+            <input type="checkbox" id="led" name="led"
+                {% if settings[0][4] %}{# list[0] = 1 #}
+                    checked
+                {% endif %}
+            >
+        </label>
+
+        <label for="email">
+            send email
+            <input type="checkbox" id="email" name="email"
+                {% if settings[0][5] %}{# list[0] = 1 #}
+                    checked
+                {% endif %}
+            >
+        </label>
+
+        <div class="save-button">
+            <button type="submit">save</button>
+        </div>
+    </form>
+
+    {% if updated %}
+        <script>
+            alert('Security settings zijn bijgewerkt');
+        </script>
+    {% endif %}
+
+
+    <script>
+        {# als er verandering wordt vastgesteld dan kleurt de save balk #}
+        var securitymode = document.getElementById('securitymode').checked;
+        var alarm = document.getElementById('alarm').checked;
+        var led = document.getElementById('led').checked;
+        var email = document.getElementById('email').checked;
+
+        setInterval(function(){
+            var new_securitymode = document.getElementById('securitymode').checked;
+            var new_alarm = document.getElementById('alarm').checked;
+            var new_led = document.getElementById('led').checked;
+            var new_email = document.getElementById('email').checked;
+
+            if ((new_securitymode === securitymode) && (new_alarm === alarm) && (new_led === led) && (new_email === email)){
+                document.getElementsByClassName('save-button')[0].style.backgroundColor = "grey";
+            }else{
+                document.getElementsByClassName('save-button')[0].style.backgroundColor = "green";
+            }
+
+        }, 1000);
+    </script>
+{% endblock %}
