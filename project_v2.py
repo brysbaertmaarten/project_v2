@@ -2,36 +2,58 @@ from flask import Flask, Response, request, redirect, url_for
 from flask import render_template
 import os
 import Servomotor
-import led_lamp
+import Led
 import DbClass
-
+import datetime
+import camera
 app = Flask(__name__)
 
-
+#test
 @app.route('/')
 def home():
+    return render_template('home.html')
+
+@app.route('/start_recording')
+def start_recording():
+    dateTime = datetime.datetime.now()
+    DbClass.DbClass().setDataToDatabase("media","date",dateTime)
+
+    data = DbClass.DbClass().getDataFromDatabaseMetVoorwaarde('media', 'date', dateTime)
+    identifier = data[0][0]
+    camera.PiCam().start_record(str(identifier))
+    return render_template('home.html')
+
+
+@app.route('/stop_recording')
+def stop_recording():
+    camera.PiCam().stop_record()
     return render_template('home.html')
 
 
 @app.route('/rotate', methods=['POST'])
 def rotate():
-    position = 50 #position opvragen uit db
+    position = DbClass.DbClass().getDataFromDatabase('settings')[0][2]
     richting = request.form['richting']
     if richting == "l":
-        Servomotor.ServoMotor(19, position).left_rotate()
+        Servomotor.ServoMotor(19, position).step_left()
+        new_position = position + 10
+        if new_position > 100 or new_position < 0:
+            new_position = position
+        DbClass.DbClass().updateData('settings', 'pan', new_position)
+
     elif richting == "r":
-        Servomotor.ServoMotor(19, position).right_rotate()
-    elif richting == "u":
-        Servomotor.ServoMotor(13, position).right_rotate()
-    elif richting == "d":
-        Servomotor.ServoMotor(13, position).left_rotate()
+        Servomotor.ServoMotor(19, position).step_right()
+        new_position = position - 10
+        if new_position > 100 or new_position < 0:
+            new_position = position
+        DbClass.DbClass().updateData('settings', 'pan', new_position)
 
     return redirect('/')
 
 
 @app.route('/led')
 def led():
-    led_lamp.LedLamp().flikker(5)
+    Led.LedLamp(26).flikker(5)
 
     return redirect('/')
 

@@ -12,19 +12,28 @@
 
 {% block body %}
 
+    <div id="livebeeld_canvas">
+        <iframe id="livebeeld" src="http://169.254.0.1:8082/index.html"></iframe>
+    </div>
+
     <form action="{{ url_for('rotate') }}" method="POST" id="form">
         <button name="richting" type="submit" value="l">left</button>
         <button name="richting" type="submit" value="r">right</button>
-        <button name="richting" type="submit" value="u">up</button>
-        <button name="richting" type="submit" value="d">down</button>
     </form>
 
-    <a href="{{ url_for('led') }}">test led</a>
-
-    <a href="{{ url_for('securitymode') }}">securitymode</a>
+    <ul>
+        <li><a href="{{ url_for('led') }}">test led</a></li>
+        <li><a href="{{ url_for('securitymode') }}">securitymode</a></li>
+        <li><a href="{{ url_for('start_recording') }}">start recording</a></li>
+        <li><a href="{{ url_for('stop_recording') }}">stop recording</a></li>
+    </ul>
 
     <script>
-
+        var frame = document.getElementById('livebeeld');
+        var width = frame.offsetWidth;
+        var height = width/1.3;
+        frame.style.height = height + "px";
     </script>
+
 
 {% endblock %}

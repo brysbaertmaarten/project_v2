@@ -33,17 +33,17 @@ class ServoMotor:
         self.absolute_rotate(0)
 
     def step_left(self):
-        self.relative_rotate(5)
+        self.relative_rotate(10)
 
     def step_right(self):
-        self.relative_rotate(-5)
+        self.relative_rotate(-10)
 
     def absolute_rotate(self, position):
         #pulse in totaal: 20ms, pulse high: tussen .5 ms en 2.4 ms
         ServoMotor.__position = position
         omgerekende_waarde = ((int(position) / 100) * 0.0019) + 0.0005
         if (omgerekende_waarde >= 0.0005) and (omgerekende_waarde <= 0.00241):
-            for i in range(20):
+            for i in range(10):
                 GPIO.output(self.__servo, GPIO.HIGH)
                 time.sleep(omgerekende_waarde)
                 GPIO.output(self.__servo, GPIO.LOW)

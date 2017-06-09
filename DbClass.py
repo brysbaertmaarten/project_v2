@@ -22,11 +22,11 @@ class DbClass:
         self.__cursor.close()
         return result
 
-    def getDataFromDatabaseMetVoorwaarde(self, voorwaarde):
+    def getDataFromDatabaseMetVoorwaarde(self, table, column, value):
         # Query met parameters
-        sqlQuery = "SELECT * FROM tablename WHERE columnname = '{param1}'"
+        sqlQuery = "SELECT * FROM {table} WHERE {column} = '{param1}'"
         # Combineren van de query en parameter
-        sqlCommand = sqlQuery.format(param1=voorwaarde)
+        sqlCommand = sqlQuery.format(table = table, column = column, param1 = value)
         
         self.__cursor.execute(sqlCommand)
         result = self.__cursor.fetchall()
