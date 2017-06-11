@@ -33,6 +33,30 @@ class DbClass:
         self.__cursor.close()
         return result
 
+    def insertMedia(self, triggered, name, type, date):
+        # Query met parameters
+        sqlQuery = "INSERT INTO media (triggered, name, type, date) VALUES ('{triggered}', '{name}', '{type}', '{date}')"
+        # Combineren van de query en parameter
+        sqlCommand = sqlQuery.format(triggered=triggered, name=name, type=type, date=date)
+
+        self.__cursor.execute(sqlCommand)
+        self.__connection.commit()
+        self.__cursor.close()
+
+    def getMedia(self, foto, video, triggered, name, volgorde):
+        # Query met parameters
+        sqlQuery = "SELECT * FROM media " \
+        "WHERE (type = {foto} OR type = {video}) AND (triggered = {triggered}) " \
+        "AND (name LIKE '%{name}%') " \
+        "ORDER BY date {volgorde}"
+        # Combineren van de query en parameter
+        sqlCommand = sqlQuery.format(foto=foto, video=video, triggered=triggered, name=name, volgorde=volgorde)
+
+        self.__cursor.execute(sqlCommand)
+        result = self.__cursor.fetchall()
+        self.__cursor.close()
+        return result
+
     def setDataToDatabase(self, table, column, value):
         # Query met parameters
         sqlQuery = "INSERT INTO {table} ({column}) VALUES ('{param1}')"

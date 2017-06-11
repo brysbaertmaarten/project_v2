@@ -9,6 +9,9 @@ class PiCam:
 
     def start_record(self, identifier):
         self.camera.start_recording("/home/pi/Documents/python/static/media/" + identifier + "_vid.h264")
+        time.sleep(5)
+        self.camera.stop_recording()
+        self.camera.close()
 
     def stop_record(self):
         self.camera.stop_recording()

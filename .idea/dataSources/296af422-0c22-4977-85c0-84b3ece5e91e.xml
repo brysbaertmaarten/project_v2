@@ -57,6 +57,7 @@
     <column id="19" parent="8" name="name">
       <Position>3</Position>
       <DataType>varchar(45)|0</DataType>
+      <DefaultExpression>&apos;naamloos&apos;</DefaultExpression>
     </column>
     <column id="20" parent="8" name="date">
       <Position>4</Position>

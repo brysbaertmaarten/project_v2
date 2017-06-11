@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename="css/reset.css") }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename="css/stijl.css") }}">
+    <title>login</title>
+</head>
+<body>
+    <form action="{{ url_for('login') }}" method="post" id="login">
+        <label for="username">user naam</label>
+        <input type="text" id="username" name="username" value="">
+
+        <label for="password">wachtwoord</label>
+        <input type="password" id="password" name="password" value="">
+
+        <div class="login-button">
+            <button type="submit">login</button>
+        </div>
+    </form>
+
+</body>
+</html>

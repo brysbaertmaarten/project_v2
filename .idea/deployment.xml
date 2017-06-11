@@ -12,7 +12,7 @@
       <paths name="sftp://pi@169.254.0.1:22/usr/bin/python3">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/pi/Documents/python" local="$PROJECT_DIR$" />
+            <mapping deploy="/home/pi/Documents/python/project_v2" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

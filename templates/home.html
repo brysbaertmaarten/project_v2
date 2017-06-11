@@ -23,16 +23,32 @@
 
     <ul>
         <li><a href="{{ url_for('led') }}">test led</a></li>
+        <li><a href="{{ url_for('buzzer') }}">test buzzer</a></li>
         <li><a href="{{ url_for('securitymode') }}">securitymode</a></li>
-        <li><a href="{{ url_for('start_recording') }}">start recording</a></li>
-        <li><a href="{{ url_for('stop_recording') }}">stop recording</a></li>
+        <li>
+            <form action="{{ url_for('start_recording') }}" method="post">
+                <input type="text" name="name" value="" id="recording_name" style="display: none">
+                <button type="submit" id="start_recording">start recording</button>
+            </form>
+        </li>
     </ul>
+
+    <div id="record_window"></div>
 
     <script>
         var frame = document.getElementById('livebeeld');
         var width = frame.offsetWidth;
         var height = width/1.3;
         frame.style.height = height + "px";
+
+        var start_recording = document.getElementById('start_recording');
+        start_recording.addEventListener('click', record_window);
+        function record_window() {
+            naam = prompt('geef een naam op voor uw video');
+            document.getElementById('recording_name').value = naam;
+            document.getElementById('record_window').style.display = "block";
+            {# meer info geven op het venseter, countdown, ... #}
+        }
     </script>
 
 

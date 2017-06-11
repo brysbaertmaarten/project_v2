@@ -12,7 +12,7 @@
 
 {% block body %}
     {# accountgegevens komen binnen account = [id, fn, ln, email, pw #}
-    <div id="logout"><a href="#">log out</a></div>
+    <div id="logout"><a href="{{ url_for('logout') }}">log out</a></div>
 
     <form action="{{ url_for('account_update') }}" method="post" id="account">
         <label for="username">user naam</label>

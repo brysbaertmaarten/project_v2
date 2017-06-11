@@ -3,7 +3,7 @@ import time
 
 
 class LedLamp:
-    def __init__(self, led=21):
+    def __init__(self, led=26):
         self.led = led
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(led, GPIO.OUT)

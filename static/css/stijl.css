@@ -16,7 +16,7 @@
 
     /*home*/
     iframe{
-        width: 100%;
+        width: 30%;
         display: block;
         text-align: center;
         margin: 0 auto;
@@ -105,15 +105,25 @@
         border: none;
     }
 	
-
+    #record_window{
+        width: 100%;
+        height: 100vh;
+        background-color: red;
+        position: fixed;
+        top:0;
+        display: none;
+    }
 
 /* tablet (max 480px) */
 @media only screen and (max-width: 960px) {
-
+    iframe{
+        width: 50%;
+    }
 }
 
 /* mobile (max 320px) */
 @media only screen and (min-width: 220px) and (max-width: 580px){
-	
-
+	 iframe{
+        width: 100%;
+    }
 }

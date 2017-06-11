@@ -11,16 +11,20 @@
 {% endblock %}
 
 {% block body %}
+    {# media komt binnen #}
     <form action="#" method="post" id="account">
         <p>extensie</p>
         <label for="foto">foto</label>
         <input type="checkbox" id="foto" name="foto">
-        <label for="foto">video</label>
+        <label for="video">video</label>
         <input type="checkbox" id="video" name="video">
 
         <p>datum en uur</p>
-        <label for="date">datum</label>
-        <input type="date" id="date" name="date">
+        <label for="date">volgorde</label>
+        <select name="date" id="date">
+          <option value="ASC">recentste eerst</option>
+          <option value="DEC">oudste eerst</option>
+        </select>
 
         <p>naam</p>
         <label for="naam">naam</label>

@@ -1,33 +1,56 @@
-from flask import Flask, Response, request, redirect, url_for
+from flask import Flask, Response, request, redirect, url_for, session, flash
 from flask import render_template
 import os
 import Servomotor
 import Led
+import Buzzer
 import DbClass
 import datetime
 import camera
+import time
+import start_stop_livebeeld
+from motion_sensor import MotionSensor
 app = Flask(__name__)
 
-#test
+#start motion detection 1x
+MotionSensor()
+
+
+#HOME
 @app.route('/')
 def home():
-    return render_template('home.html')
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        start_stop_livebeeld.start()
+        return render_template('home.html')
 
-@app.route('/start_recording')
+@app.route('/login', methods=['POST'])
+def login():
+    accountgegevens = DbClass.DbClass().getDataFromDatabase('account')[0]
+    if request.form['password'] == accountgegevens[5] and request.form['username'] == accountgegevens[1]:
+        session['logged_in'] = True
+    else:
+        flash('wrong password')
+    return home()
+
+
+@app.route("/logout")
+def logout():
+    session['logged_in'] = False
+    return home()
+
+
+@app.route('/start_recording', methods=['POST'])
 def start_recording():
+    start_stop_livebeeld.stop()
+    name = request.form['name']
     dateTime = datetime.datetime.now()
-    DbClass.DbClass().setDataToDatabase("media","date",dateTime)
-
+    DbClass.DbClass().insertMedia(0, name, 1, dateTime)
     data = DbClass.DbClass().getDataFromDatabaseMetVoorwaarde('media', 'date', dateTime)
     identifier = data[0][0]
     camera.PiCam().start_record(str(identifier))
-    return render_template('home.html')
-
-
-@app.route('/stop_recording')
-def stop_recording():
-    camera.PiCam().stop_record()
-    return render_template('home.html')
+    return redirect('/')
 
 
 @app.route('/rotate', methods=['POST'])
@@ -47,14 +70,18 @@ def rotate():
         if new_position > 100 or new_position < 0:
             new_position = position
         DbClass.DbClass().updateData('settings', 'pan', new_position)
-
     return redirect('/')
 
 
 @app.route('/led')
 def led():
     Led.LedLamp(26).flikker(5)
+    return redirect('/')
 
+
+@app.route('/buzzer')
+def buzzer():
+    Buzzer.Buzzer(13).alarm(5)
     return redirect('/')
 
 
@@ -106,8 +133,15 @@ def securitymode_update():
 
 @app.route('/capturedmedia')
 def captured_media():
-    return render_template('captured-media.html')
+    media = DbClass.DbClass().getDataFromDatabase('media')
+    return render_template('captured-media.html', media=media)
+
+@app.route('/get_media', methods=['POST'])
+def get_media():
+    result = request.form
+
 
 if __name__ == '__main__':
+    app.secret_key = os.urandom(12)
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", debug=True)
