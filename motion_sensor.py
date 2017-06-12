@@ -5,7 +5,6 @@ from Led import LedLamp
 from Buzzer import Buzzer
 from DbClass import DbClass
 import datetime
-import start_stop_livebeeld
 
 class MotionSensor:
     def __init__(self, motion_sensor = 21):
@@ -20,21 +19,15 @@ class MotionSensor:
         print("motion detected")
 
         if settings[1]:
-            start_stop_livebeeld.stop()
-            dateTime = datetime.datetime.now()
-            DbClass().insertMedia(1, 'naamloos', 1, dateTime)
-            data = DbClass().getDataFromDatabaseMetVoorwaarde('media', 'date', dateTime)
-            identifier = data[0][0]
-            camera.PiCam().start_record(str(identifier))
             print('start recording')
 
             if settings[4]:
                 print('led')
-                LedLamp().flikker(5)
+                LedLamp().flikker_bg(5)
 
             if settings[3]:
                 print('alarm')
-                Buzzer().alarm(5)
+                Buzzer().alarm_bg(5)
 
             if settings[5]:
                 print('email send')

@@ -11,7 +11,6 @@
 {% endblock %}
 
 {% block body %}
-
     <div id="livebeeld_canvas">
         <iframe id="livebeeld" src="http://169.254.0.1:8082/index.html"></iframe>
     </div>
@@ -31,9 +30,16 @@
                 <button type="submit" id="start_recording">start recording</button>
             </form>
         </li>
+        <li>
+            <form action="{{ url_for('capture') }}" method="post">
+                <input type="text" name="name" value="" id="capture_name" style="display: none">
+                <button type="submit" id="capture">take picture</button>
+            </form>
+        </li>
     </ul>
 
-    <div id="record_window"></div>
+    <div id="record_window" class="window"></div>
+    <div id="capture_window" class="window"></div>
 
     <script>
         var frame = document.getElementById('livebeeld');
@@ -47,6 +53,15 @@
             naam = prompt('geef een naam op voor uw video');
             document.getElementById('recording_name').value = naam;
             document.getElementById('record_window').style.display = "block";
+            {# meer info geven op het venseter, countdown, ... #}
+        }
+
+        var capture = document.getElementById('capture');
+        capture.addEventListener('click', capture_window);
+        function capture_window() {
+            naam = prompt('geef een naam op voor uw foto');
+            document.getElementById('capture_name').value = naam;
+            document.getElementById('capture_window').style.display = "block";
             {# meer info geven op het venseter, countdown, ... #}
         }
     </script>

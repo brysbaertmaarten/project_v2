@@ -43,14 +43,14 @@ class DbClass:
         self.__connection.commit()
         self.__cursor.close()
 
-    def getMedia(self, foto, video, triggered, name, volgorde):
+    def getMedia(self, type, triggered, name, volgorde):
         # Query met parameters
         sqlQuery = "SELECT * FROM media " \
-        "WHERE (type = {foto} OR type = {video}) AND (triggered = {triggered}) " \
+        "WHERE (type = {type}) AND (triggered = {triggered}) " \
         "AND (name LIKE '%{name}%') " \
         "ORDER BY date {volgorde}"
         # Combineren van de query en parameter
-        sqlCommand = sqlQuery.format(foto=foto, video=video, triggered=triggered, name=name, volgorde=volgorde)
+        sqlCommand = sqlQuery.format(type=type, triggered=triggered, name=name, volgorde=volgorde)
 
         self.__cursor.execute(sqlCommand)
         result = self.__cursor.fetchall()

@@ -105,13 +105,43 @@
         border: none;
     }
 	
-    #record_window{
+    .window{
         width: 100%;
         height: 100vh;
-        background-color: red;
         position: fixed;
         top:0;
         display: none;
+    }
+    #record_window{
+         background-color: red;
+    }
+    #capture_window{
+         background-color: green;
+    }
+
+    /* captured media*/
+    .media_item{
+        width: calc(100% - 10px);
+        background-color: orange;
+        margin-bottom: 5px;
+        display: inline-block;
+        padding: 5px;
+    }
+    .media_item div{
+        float: left;
+    }
+    .media_item div:last-of-type{
+        float: right;
+    }
+    .media_item img{
+        height: 30px;
+        margin-right:10px;
+    }
+    .media_item div p b{
+        font-weight: bold;;
+    }
+    .media_item a{
+
     }
 
 /* tablet (max 480px) */

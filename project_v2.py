@@ -7,23 +7,31 @@ import Buzzer
 import DbClass
 import datetime
 import camera
+from sys import executable
+from subprocess import Popen
 import time
-import start_stop_livebeeld
 from motion_sensor import MotionSensor
+from threading import Thread
 app = Flask(__name__)
 
-#start motion detection 1x
+#start motion detection
 MotionSensor()
 
 
 #HOME
+process = None #initialiseren
 @app.route('/')
 def home():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        start_stop_livebeeld.start()
+        global process
+        if process != None:
+            process.terminate() #als er nog een process bezig is, stop het
+        process = Popen([executable, '/home/pi/Documents/python/project_v2/static/pistreaming/server.py'])  # start stream
+        time.sleep(2)
         return render_template('home.html')
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -43,13 +51,27 @@ def logout():
 
 @app.route('/start_recording', methods=['POST'])
 def start_recording():
-    start_stop_livebeeld.stop()
+    process.terminate()
+    time.sleep(1)
     name = request.form['name']
     dateTime = datetime.datetime.now()
     DbClass.DbClass().insertMedia(0, name, 1, dateTime)
     data = DbClass.DbClass().getDataFromDatabaseMetVoorwaarde('media', 'date', dateTime)
     identifier = data[0][0]
     camera.PiCam().start_record(str(identifier))
+    return redirect('/')
+
+
+@app.route('/capture', methods=['POST'])
+def capture():
+    process.terminate()
+    time.sleep(1)
+    name = request.form['name']
+    dateTime = datetime.datetime.now()
+    DbClass.DbClass().insertMedia(0, name, 0, dateTime)
+    data = DbClass.DbClass().getDataFromDatabaseMetVoorwaarde('media', 'date', dateTime)
+    identifier = data[0][0]
+    camera.PiCam().capture(str(identifier))
     return redirect('/')
 
 
@@ -75,13 +97,13 @@ def rotate():
 
 @app.route('/led')
 def led():
-    Led.LedLamp(26).flikker(5)
+    Led.LedLamp(26).flikker_bg(5)
     return redirect('/')
 
 
 @app.route('/buzzer')
 def buzzer():
-    Buzzer.Buzzer(13).alarm(5)
+    Buzzer.Buzzer(13).alarm_bg(5)
     return redirect('/')
 
 
@@ -113,32 +135,30 @@ def securitymode():
 @app.route('/securitymode/update', methods=['POST'])
 def securitymode_update():
     result = request.form
-    print(result)
-
     def get_bool(key):
         try:
             if result[key]:
                 return 1
         except:
             return 0
-
     DbClass.DbClass().updateData('settings', 'securitymode', get_bool("securitymode"))
     DbClass.DbClass().updateData('settings', 'alarm', get_bool("alarm"))
     DbClass.DbClass().updateData('settings', 'led', get_bool("led"))
     DbClass.DbClass().updateData('settings', 'email', get_bool("email"))
-
     settings = DbClass.DbClass().getDataFromDatabase('settings')
     return render_template('securitymode.html', settings=settings, updated=True)
 
 
 @app.route('/capturedmedia')
 def captured_media():
-    media = DbClass.DbClass().getDataFromDatabase('media')
-    return render_template('captured-media.html', media=media)
+    return render_template('captured-media.html')
 
 @app.route('/get_media', methods=['POST'])
 def get_media():
     result = request.form
+    data = DbClass.DbClass().getMedia(result['type'], 0, result['naam'], result["date"])
+    return render_template('captured-media.html', data=data)
+
 
 
 if __name__ == '__main__':
