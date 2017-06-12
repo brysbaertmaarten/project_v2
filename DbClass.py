@@ -43,6 +43,16 @@ class DbClass:
         self.__connection.commit()
         self.__cursor.close()
 
+    def delete_media(self, id):
+        # Query met parameters
+        sqlQuery = "DELETE FROM media WHERE ID = {id}"
+        # Combineren van de query en parameter
+        sqlCommand = sqlQuery.format(id=id)
+
+        self.__cursor.execute(sqlCommand)
+        self.__connection.commit()
+        self.__cursor.close()
+
     def getMedia(self, type, triggered, name, volgorde):
         # Query met parameters
         sqlQuery = "SELECT * FROM media " \

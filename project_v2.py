@@ -22,15 +22,15 @@ MotionSensor()
 process = None #initialiseren
 @app.route('/')
 def home():
-    if not session.get('logged_in'):
-        return render_template('login.html')
-    else:
-        global process
-        if process != None:
-            process.terminate() #als er nog een process bezig is, stop het
-        process = Popen([executable, '/home/pi/Documents/python/project_v2/static/pistreaming/server.py'])  # start stream
-        time.sleep(2)
-        return render_template('home.html')
+    #if not session.get('logged_in'):
+     #   return render_template('login.html')
+    #else:
+    global process
+    if process != None:
+        process.terminate() #als er nog een process bezig is, stop het
+    process = Popen([executable, '/home/pi/Documents/python/project_v2/static/pistreaming/server.py'])  # start stream
+    time.sleep(2)
+    return render_template('home.html')
 
 
 @app.route('/login', methods=['POST'])
@@ -159,6 +159,18 @@ def get_media():
     data = DbClass.DbClass().getMedia(result['type'], 0, result['naam'], result["date"])
     return render_template('captured-media.html', data=data)
 
+
+@app.route('/delete/<id>/<extensie>')
+def delete(id, extensie):
+    delete = True
+    print(id)
+    print(extensie)
+    try:
+        DbClass.DbClass().delete_media(id)
+        os.system('rm /home/pi/Documents/python/project_v2/static/media/' + id + extensie)
+    except:
+        delete = False
+    return render_template('captured-media.html', delete=delete)
 
 
 if __name__ == '__main__':

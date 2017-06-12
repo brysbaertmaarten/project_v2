@@ -1,9 +1,8 @@
 from RPi import GPIO as GPIO
-import time
-import camera
 from Led import LedLamp
 from Buzzer import Buzzer
 from DbClass import DbClass
+import requests
 import datetime
 
 class MotionSensor:
@@ -31,4 +30,11 @@ class MotionSensor:
 
             if settings[5]:
                 print('email send')
+                #email = 'brysbaertmaarten@hotmail.com'
+                #date = 'datum nu'
+                #url = 'https://maartenb.000webhostapp.com/php/spam.php'
+
+                #data = {'email': email, 'date':date}
+                #requests.post(url, data=data)
+
 

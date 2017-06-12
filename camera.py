@@ -9,11 +9,13 @@ class PiCam:
 
     def start_record(self, identifier):
         pad = "/home/pi/Documents/python/project_v2/static/media/" + identifier + "_vid."
-        self.camera.start_recording(pad + 'h264')
+        extensie = 'h264'
+        self.camera.start_recording(pad + extensie)
         time.sleep(5)
         self.camera.stop_recording()
         self.camera.close()
         self.set_to_mp4(pad)
+        os.system('rm ' + pad + extensie)
 
     def set_to_mp4(self, pad):
         os.system('avconv -r 30 -i ' + pad + 'h264 -vcodec copy ' + pad + 'mp4')

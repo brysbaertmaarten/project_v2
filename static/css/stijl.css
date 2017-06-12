@@ -41,6 +41,14 @@
     nav .account, nav .captured_media{
         float: right;
     }
+    nav ul li a img{
+        height: 30px;
+        padding: 10px;
+    }
+    .account img, .captured_media img{
+        height: 20px;
+        padding: 15px;
+    }
 
     /*account*/
     input, label{

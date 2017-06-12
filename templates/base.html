@@ -4,14 +4,27 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename="css/reset.css") }}">
     <link rel="stylesheet" href="{{ url_for('static', filename="css/stijl.css") }}">
+
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
     <nav>
         <ul>
-            <li class="home"><a href="{{ url_for('home') }}" id="{% block home_active_page %}{% endblock %}" title="home"><img src="" alt="logo"></a></li>
-            <li class="account"><a href="{{ url_for('account') }}" id="{% block account_active_page %}{% endblock %}" title="account"><img src="" alt="account icon"></a></li>
-            <li class="captured_media"><a href="{{ url_for('captured_media') }}" id="{% block captured_media_active_page %}{% endblock %}" title="captured media"><img src="" alt="library icon"></a></li>
+            <li class="home">
+                <a href="{{ url_for('home') }}" id="{% block home_active_page %}{% endblock %}" title="home">
+                    <img src="{{ url_for('static', filename='icons/logo1.png') }}" alt="logo">
+                </a>
+            </li>
+            <li class="account">
+                <a href="{{ url_for('account') }}" id="{% block account_active_page %}{% endblock %}" title="account">
+                    <img src="{{ url_for('static', filename='icons/account.png') }}" alt="account icon">
+                </a>
+            </li>
+            <li class="captured_media">
+                <a href="{{ url_for('captured_media') }}" id="{% block captured_media_active_page %}{% endblock %}" title="captured media">
+                    <img src="{{ url_for('static', filename='icons/media.png') }}" alt="library icon">
+                </a>
+            </li>
         </ul>
     </nav>
 
@@ -20,6 +33,12 @@
     {% block body %}
 
     {% endblock %}
+
+    <footer>
+        <div>account icon made by <a href="http://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+        <div>media icon made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+        <div>security icon made by <a href="http://www.flaticon.com/authors/chanut-is-industries" title="Chanut is Industries">Chanut is Industries</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    </footer>
 
 </body>
 </html>

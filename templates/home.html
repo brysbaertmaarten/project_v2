@@ -15,10 +15,10 @@
         <iframe id="livebeeld" src="http://169.254.0.1:8082/index.html"></iframe>
     </div>
 
-    <form action="{{ url_for('rotate') }}" method="POST" id="form">
-        <button name="richting" type="submit" value="l">left</button>
-        <button name="richting" type="submit" value="r">right</button>
-    </form>
+
+        <button name="richting" type="submit" value="l" id="left">left</button>
+        <button name="richting" type="submit" value="r" id="right">right</button>
+
 
     <ul>
         <li><a href="{{ url_for('led') }}">test led</a></li>
@@ -63,6 +63,26 @@
             document.getElementById('capture_name').value = naam;
             document.getElementById('capture_window').style.display = "block";
             {# meer info geven op het venseter, countdown, ... #}
+        }
+
+        document.getElementById('left').addEventListener('click', rotate_left);
+        document.getElementById('right').addEventListener('click', rotate_right);
+
+        function rotate_left() {
+            var http = new XMLHttpRequest();
+            http.open("POST", "/rotate", true);
+            http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            var params = "richting=" + 'l';
+            http.send(params);
+            return false;
+        }
+        function rotate_right() {
+            var http = new XMLHttpRequest();
+            http.open("POST", "/rotate", true);
+            http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            var params = "richting=" + 'r';
+            http.send(params);
+            return false;
         }
     </script>
 

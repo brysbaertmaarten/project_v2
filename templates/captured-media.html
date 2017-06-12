@@ -28,61 +28,57 @@
         <input type="text" id="naam" name="naam">
 
         <div class="search-button">
-            <button type="submit">search</button> {# moet pas tevoorschijn komen als er iets wordt aangepast + er komt een popup die bevestigt dat de aanpassingen zijn opgeslagen #}
+            <button type="submit">search</button>
         </div>
     </form>
 
     <div class="media">
-        {# data komen binnen #}
+        {# data komt binnen #}
         {% for media in data %}
-            {% if media[1] == 1 %}
-                <div class="media_item">
-                    <div>
+            <div class="media_item">
+                {# toon een foto of icon #}
+                <div>
+                    {% if media[1] == 1 %}
                         <img src="" alt="">
-                    </div>
-                    <div>
-                        <p>
-                            <b>
-                                {{ media[2] }}
-                                {% if media[2] == "" %}
-                                    naamloos
-                                {% endif %}
-                            </b>
-                        </p>
-                        <p>{{ media[3] }}</p>
-                    </div>
-                    <div>
-                        <a href="/static/media/{{ media[0] }}_vid.mp4" type="video/mp4" target="_blank">bekijk</a>
-                        <a href="#">rename</a>
-                        <a href="#">delete</a>
-                    </div>
-                </div>
-            {% endif %}
-            {% if media[1] == 0 %}
-                <div class="media_item">
-                    <div>
+                    {% else %}
                         <img src="/static/media/{{ media[0] }}_pic.jpg" alt="">
-                    </div>
-                    <div>
-                         <p>
-                            <b>
-                                {{ media[2] }}
-                                {% if media[2] == "" %}
-                                    naamloos
-                                {% endif %}
-                            </b>
-                        </p>
-                        <p>{{ media[3] }}</p>
-                    </div>
-                    <div>
-                        <a href="/static/media/{{ media[0] }}_pic.jpg" type="video/mp4" target="_blank">bekijk</a>
-                        <a href="#">rename</a>
-                        <a href="#">delete</a>
-                    </div>
+                    {% endif %}
                 </div>
-            {% endif %}
+                {# toon naam (of naamloos) en datum #}
+                <div>
+                    <p>
+                        <b>
+                            {{ media[2] }}
+                            {% if media[2] == "" %}
+                                naamloos
+                            {% endif %}
+                        </b>
+                    </p>
+                    <p>{{ media[3] }}</p>
+                </div>
+                {# geef link naar foto of video en de optie om te verwijderen #}
+                <div>
+                    {% if media[1] == 1 %}
+                        <a href="/static/media/{{ media[0] }}_vid.mp4" type="video/mp4" target="_blank">bekijk</a>
+                    {% else %}
+                        <a href="/static/media/{{ media[0] }}_pic.jpg" target="_blank">bekijk</a>
+                    {% endif %}
+                        {% if media[1] == 1 %}
+                            <a href="{{ url_for('delete', id=media[0], extensie="_vid.mp4") }}">delete</a>
+                        {% else %}
+                            <a href="{{ url_for('delete', id=media[0], extensie="_pic.jpg") }}">delete</a>
+                        {% endif %}
+                </div>
+            </div>
         {% endfor %}
+
+        {% if delete %}
+            <script>
+                alert('item verwijderd')
+            </script>
+        {% endif %}
     </div>
 
     <div class="spacer"></div>
+
 {% endblock %}
