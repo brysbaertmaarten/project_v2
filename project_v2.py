@@ -92,7 +92,7 @@ def rotate():
         if new_position > 100 or new_position < 0:
             new_position = position
         DbClass.DbClass().updateData('settings', 'pan', new_position)
-    return redirect('/')
+    return 'rotate'
 
 
 @app.route('/led')
