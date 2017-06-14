@@ -12,6 +12,7 @@
 	}
     .spacer{
         height: 50px;
+        clear: both;
     }
 
     /*home*/
@@ -23,7 +24,7 @@
     }
     #livebeeld_canvas{
         width: 100%;
-        background-color: black;
+        background-color: white;
         overflow-y: hidden;
     }
 
@@ -33,7 +34,7 @@
         height: 50px;
         position: fixed;
         background-color: white;
-        border-bottom: 1px solid rgb(250,250,250);
+        border-bottom: 1px solid #5883D2;
 	}
     nav .home{
         float: left;
@@ -50,6 +51,47 @@
         padding: 15px;
     }
 
+    /*login*/
+    #logo_login{
+        text-align: center;
+        padding: 50px;
+    }
+    #logo_login img{
+        height: 60px;
+    }
+    #login_form{
+        width:  90%;
+        margin: 0 auto;
+    }
+    #login_form input{
+        width: 100%;
+        border: none;
+        background-color: transparent;
+        border-bottom: 1px solid #5883D2;
+        margin: 10px 0;
+        padding: 5px 0;
+    }
+    input:focus{
+        outline: none;
+    }
+    #login_form label{
+        color: gray;
+    }
+    #login_form button{
+        border: none;
+        background-color: #5883D2;
+        color: white;
+        padding: 7px 0px;
+        width: 100%;
+        margin-top:50px;
+    }
+    #logo_login figcaption{
+        padding: 10px;
+        font-weight: bold;
+        font-size: 1.2em;
+        color: #5883D2;
+    }
+
     /*account*/
     input, label{
         display: block;
@@ -59,9 +101,9 @@
         margin-bottom: 15px;
         width: calc(100% - 10px);
         border: none;
-        background-color: lightgray;
         padding: 10px 0;
-        text-indent: 5px;
+        background-color: rgb(240,240,240);
+        border-bottom: 1px solid #5883D2;
     }
     #account label{
         margin: 0 5px;
@@ -76,10 +118,36 @@
     #logout a{
         float: right;
         display: block;
-        background-color: grey;
+        background-color: #5883D2;
         margin: 5px;
         padding: 10px 20px;
         text-decoration: none;
+        color: white;
+    }
+    .buttons li a{
+        float: left;
+        width: calc(50% - 2px);
+        display: block;
+        text-decoration: none;
+        text-align: center;
+        padding: 10px 0;
+        background-color: grey;
+        margin: 1px;
+        color: white
+    }
+    .buttons li:last-of-type a{
+        width: calc(100% - 1px);
+        background-color: #5883D2;
+    }
+    .knop_home{
+        width: calc(50% - 2px);
+        float: left;
+        border: none;
+        background-color: grey;
+        margin: 1px;
+        padding: 10px 0;
+        color: white;
+        cursor: pointer;
     }
 
     /*securitymode*/
@@ -89,7 +157,8 @@
         text-indent: 5px;
     }
     #security label:first-child{
-        background-color: grey;
+        background-color: #5883D2;
+        color: white;
     }
     #security input{
         float: right;
@@ -119,18 +188,38 @@
         position: fixed;
         top:0;
         display: none;
+        background-color: lightgray;
     }
-    #record_window{
-         background-color: red;
-    }
-    #capture_window{
-         background-color: green;
+    .window p{
+        text-align: center;
+        padding-top: 50vh;
     }
 
     /* captured media*/
+    .captured_media_form{
+        width: calc(100% - 10px);
+        margin: 0 auto;
+    }
+    .captured_media_form input, .captured_media_form select{
+        margin: 5px 0;
+        width:100%;
+    }
+    .captured_media_form label{
+        color: grey;
+        margin-top:15px;
+        width:100%;
+    }
+    .captured_media_form button{
+        width: 100%;
+        background-color: #5883D2;
+        color: white;
+        border: none;
+        padding: 7px 0;
+        margin: 10px 0;
+    }
     .media_item{
         width: calc(100% - 10px);
-        background-color: orange;
+        background-color: lightgray;
         margin-bottom: 5px;
         display: inline-block;
         padding: 5px;
@@ -150,6 +239,14 @@
     }
     .media_item a{
 
+    }
+
+    /*footer*/
+    footer{
+        clear: both;
+        background-color: lightgray;
+        margin-top: 100px;
+        padding:5px;
     }
 
 /* tablet (max 480px) */

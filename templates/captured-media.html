@@ -12,7 +12,7 @@
 
 {% block body %}
     {# media komt binnen #}
-    <form action="{{ url_for('get_media') }}" method="post">
+    <form action="{{ url_for('get_media') }}" method="post" class="captured_media_form">
         <label for="foto">foto</label>
         <input type="radio" id="foto" name="type" value="0">
         <label for="video">video</label>
@@ -39,7 +39,7 @@
                 {# toon een foto of icon #}
                 <div>
                     {% if media[1] == 1 %}
-                        <img src="" alt="">
+                        <img src="/static/icons/video-player.png" alt="icon van video player">
                     {% else %}
                         <img src="/static/media/{{ media[0] }}_pic.jpg" alt="">
                     {% endif %}

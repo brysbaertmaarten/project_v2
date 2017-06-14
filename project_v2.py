@@ -1,30 +1,28 @@
 from flask import Flask, Response, request, redirect, url_for, session, flash
 from flask import render_template
-import os
-import Servomotor
-import Led
-import Buzzer
-import DbClass
-import datetime
-import camera
+
+import Servomotor, Led, Buzzer, camera, DbClass, motion_sensor
+
 from sys import executable
 from subprocess import Popen
-import time
-from motion_sensor import MotionSensor
-from threading import Thread
+
+import time, os, datetime
 app = Flask(__name__)
 
 #start motion detection
-MotionSensor()
+motion_sensor.MotionSensor()
 
+@app.before_request
+def before_request():
+    print(request.path)
+    if request.path != '/login' or request.path == '/logout':
+        if not session.get('logged_in'):
+           return render_template('login.html')
 
 #HOME
 process = None #initialiseren
 @app.route('/')
 def home():
-    #if not session.get('logged_in'):
-     #   return render_template('login.html')
-    #else:
     global process
     if process != None:
         process.terminate() #als er nog een process bezig is, stop het
@@ -46,7 +44,7 @@ def login():
 @app.route("/logout")
 def logout():
     session['logged_in'] = False
-    return home()
+    return render_template('login.html')
 
 
 @app.route('/start_recording', methods=['POST'])

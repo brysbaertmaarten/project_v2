@@ -16,30 +16,30 @@
     </div>
 
 
-        <button name="richting" type="submit" value="l" id="left">left</button>
-        <button name="richting" type="submit" value="r" id="right">right</button>
+        <button name="richting" type="submit" value="l" id="left" class="knop_home">left</button>
+        <button name="richting" type="submit" value="r" id="right" class="knop_home">right</button>
 
 
-    <ul>
+    <ul class="buttons">
         <li><a href="{{ url_for('led') }}">test led</a></li>
         <li><a href="{{ url_for('buzzer') }}">test buzzer</a></li>
         <li><a href="{{ url_for('securitymode') }}">securitymode</a></li>
-        <li>
-            <form action="{{ url_for('start_recording') }}" method="post">
-                <input type="text" name="name" value="" id="recording_name" style="display: none">
-                <button type="submit" id="start_recording">start recording</button>
-            </form>
-        </li>
-        <li>
-            <form action="{{ url_for('capture') }}" method="post">
-                <input type="text" name="name" value="" id="capture_name" style="display: none">
-                <button type="submit" id="capture">take picture</button>
-            </form>
-        </li>
     </ul>
 
-    <div id="record_window" class="window"></div>
-    <div id="capture_window" class="window"></div>
+
+    <form action="{{ url_for('start_recording') }}" method="post">
+        <input type="text" name="name" value="" id="recording_name" style="display: none">
+        <button type="submit" id="start_recording" class="knop_home">start recording</button>
+    </form>
+
+    <form action="{{ url_for('capture') }}" method="post">
+        <input type="text" name="name" value="" id="capture_name" style="display: none">
+        <button type="submit" id="capture" class="knop_home">take picture</button>
+    </form>
+
+
+    <div id="record_window" class="window"><p>recording<br>wait...</p></div>
+    <div id="capture_window" class="window"><p>capturing<br>wait...</p></div>
 
     <script>
         var frame = document.getElementById('livebeeld');

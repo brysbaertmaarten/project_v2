@@ -7,7 +7,11 @@
     <title>login</title>
 </head>
 <body>
-    <form action="{{ url_for('login') }}" method="post" id="login">
+    <figure id="logo_login">
+        <img src="{{ url_for('static', filename='icons/logo1.png') }}" alt="logo">
+        <figcaption>SeCam</figcaption>
+    </figure>
+    <form action="{{ url_for('login') }}" method="post" id="login_form">
         <label for="username">user naam</label>
         <input type="text" id="username" name="username" value="" autofocus>
 
