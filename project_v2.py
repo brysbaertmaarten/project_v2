@@ -12,23 +12,25 @@ app = Flask(__name__)
 #start motion detection
 motion_sensor.MotionSensor()
 
-@app.before_request
-def before_request():
-    print(request.path)
-    if request.path != '/login' or request.path == '/logout':
-        if not session.get('logged_in'):
-           return render_template('login.html')
+#@app.before_request
+#def before_request():
+#    if request.path != '/login' or request.path == '/logout':
+#        if not session.get('logged_in'):
+#           return render_template('login.html')
 
 #HOME
 process = None #initialiseren
 @app.route('/')
 def home():
-    global process
-    if process != None:
-        process.terminate() #als er nog een process bezig is, stop het
-    process = Popen([executable, '/home/pi/Documents/python/project_v2/static/pistreaming/server.py'])  # start stream
-    time.sleep(2)
-    return render_template('home.html')
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        global process
+        if process != None:
+            process.terminate() #als er nog een process bezig is, stop het
+        process = Popen([executable, '/home/pi/Documents/python/project_v2/static/pistreaming/server.py'])  # start stream
+        time.sleep(2)
+        return render_template('home.html')
 
 
 @app.route('/login', methods=['POST'])

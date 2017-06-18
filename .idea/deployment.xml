@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="sftp://pi@169.254.0.1:22/usr/bin/python3" autoUploadExternalChanges="true">
+  <component name="PublishConfigData" autoUpload="Always" autoUploadExternalChanges="true">
     <serverData>
       <paths name="pi">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="sftp://pi@169.254.0.1:22/usr/bin/python3">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/home/pi/Documents/python/project_v2" local="$PROJECT_DIR$" />
+            <mapping deploy="/Documents/python/project_v2" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
